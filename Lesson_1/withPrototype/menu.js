@@ -11,7 +11,7 @@ function Container() {
   };
 
   this.remove = function () {
-      return document.getElementById(this.id);
+      document.getElementById(this.id).remove();
   }
 }
 
@@ -36,23 +36,21 @@ function Menu(id, className, items) {
   }
 }
 
-function Submenu(link, label, id, className, menu) {
+function Submenu(link, label, id, menu) {
     Menu.call(this);
     this.link = link;
     this.label = label;
     this.id = id;
-    this.className = className;
     this.menu = menu;
 
     this.render = function () {
         let li = document.createElement('li');
+        li.id = this.id;
         let a = document.createElement('a');
         a.href = this.link;
         a.textContent = this.label;
         li.appendChild(a);
         let ul = document.createElement('ul');
-        ul.className = this.className;
-        ul.id = this.id;
 
         for (let i = 0; i < this.menu.length; i++) {
             if (this.menu[i] instanceof MenuItem ) {
@@ -64,13 +62,15 @@ function Submenu(link, label, id, className, menu) {
     }
 }
 
-function MenuItem(link, label) {
+function MenuItem(my_id, link, label) {
     Container.call(this);
+    this.id = my_id;
     this.link = link;
     this.label = label;
 
     this.render = function () {
         let li = document.createElement('li');
+        li.id = this.id;
         let a = document.createElement('a');
         a.href = this.link;
         a.textContent = this.label;

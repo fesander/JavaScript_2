@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script src="menu.js"></script>
+<!--  <script src="menu_prototype.js"></script>-->
+</head>
+<body>
+  <script>
+      window.onload = function() {
+          let menuItem1 = new MenuItem('main', '/', 'Главная');
+          let menuItem2 = new MenuItem('about', '/about', 'О нас');
+
+          let submenuItem1 = new MenuItem('catalog-man', '/catalog/man', 'Мужская Одежда');
+          let submenuItem2 = new MenuItem('catalog-woman', '/catalog/woman', 'Женская Одежда');
+
+          let menuItem3 = new Submenu('/catalog', 'Каталог', 'submenu', [
+              submenuItem1, submenuItem2
+          ]);
+          
+          let menu = new Menu('menu', 'menu', [
+              menuItem1, menuItem2, menuItem3
+          ]);
+
+          document.body.appendChild(menu.render());
+          
+          menuItem2.remove();
+          submenuItem1.remove();
+      }
+  </script>
+</body>
+</html>
