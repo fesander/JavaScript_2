@@ -1,0 +1,7 @@
+{
+  "menu_items" : [
+    {"id" : "main", "href" : "/", "title" : "Главная"},
+    {"id" : "catalog", "href" : "/catalogue/", "title" : "Каталог"},
+    {"id" : "gallery", "href" : "/gallery/", "title" : "Галерея"}
+  ]
+}
