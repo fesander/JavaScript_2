@@ -128,5 +128,5 @@ if (!xhr) {
 }
 
 xhr.onreadystatechange = function() {fullMenuContent(xhr)};
-xhr.open('GET', "menu.json", true);
+xhr.open('GET', "json/menu.json", true);
 xhr.send();

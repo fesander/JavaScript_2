@@ -60,14 +60,13 @@ function parseJSONtoGalleryItem(items) {
     return  my_items;
 }
 
-function fullGalleryContent(xhr) {
+function fullGalleryContent(xhrG) {
 
     if(xhrG.readyState === 4) {
         if(xhrG.status === 0) {
             let images = JSON.parse(xhrG.responseText);
             a = parseJSONtoGalleryItem(images.image_items);
             let gallery = new Gallery('container', a);
-            rd = gallery.render();
             document.body.appendChild(gallery.render());
         }
     }
@@ -91,5 +90,5 @@ if (!xhrG) {
 }
 
 xhrG.onreadystatechange = function() {fullGalleryContent(xhrG)};
-xhrG.open('GET', "menu.json", true);
+xhrG.open('GET', "json/menu.json", true);
 xhrG.send();

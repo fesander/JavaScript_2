@@ -13,7 +13,7 @@
         ]
     },
     {"id" : "gallery", "href" : "gallery.html", "title" : "Галерея"},
-    {"id" : "sale", "href" : "sale/", "title" : "Промо акции"}
+    {"id" : "sale", "href" : "sale.html", "title" : "Промо акции"}
   ],
 
   "image_items" : [
