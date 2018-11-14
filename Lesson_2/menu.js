@@ -52,11 +52,12 @@ function Submenu(link, label, id, menu) {
         li.appendChild(a);
         let ul = document.createElement('ul');
 
-        for (let i = 0; i < this.menu.length; i++) {
-            if (this.menu[i] instanceof MenuItem ) {
-                ul.appendChild(this.menu[i].render());
+        for (let item in menu) {
+            if (this.menu[item] instanceof MenuItem) {
+                ul.appendChild(this.menu[item].render());
             }
         }
+
         li.appendChild(ul);
         return li;
     }
@@ -82,6 +83,24 @@ function MenuItem(my_id, link, label) {
 
 console.log("The second homework begins");
 
+function parseJSONtoObject(items) {
+    my_items = {};
+
+    for(let  i = 0; i < items.length; i++) {
+        console.log("item = " + items[i].items);
+        if(items[i].items) {
+            let my_submenu_items = {};
+            for(let  j = 0; j < items[i].items.length; j++) {
+                my_submenu_items[j] = new MenuItem(items[i].items[j].id, items[i].items[j].href, items[i].items[j].title);
+            }
+            my_items[i] = new Submenu(items[i].href, items[i].title, items[i].id, my_submenu_items);
+        } else
+            my_items[i] = new MenuItem(items[i].id, items[i].href, items[i].title);
+    }
+
+    return new Menu('menu', 'menu', my_items);
+}
+
 let my_items;
 function fullMenuContent(xhr) {
     my_items = {};
@@ -91,10 +110,7 @@ function fullMenuContent(xhr) {
             let items = JSON.parse(xhr.responseText);
             console.log(items);
 
-            for(let  i = 0; i < items.menu_items.length; i++)
-                my_items[i] = new MenuItem(items.menu_items[i].id, items.menu_items[i].href, items.menu_items[i].title);
-
-            let menu = new Menu('menu', 'menu', my_items);
+            let menu = parseJSONtoObject(items.menu_items);
             document.body.appendChild(menu.render());
         }
     }
