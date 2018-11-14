@@ -81,6 +81,7 @@ function MenuItem(my_id, link, label) {
     }
 }
 
+// Рекурсивная функция, позволяющая получить любую степень вложенности меню
 function parseJSONtoObject(items) {
     let my_items = {};
 

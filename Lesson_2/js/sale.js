@@ -52,6 +52,7 @@ function errorOrSuccess(xhr4) {
             let div = document.createElement('div');
             div.className = "container";
 
+            // Вывод картинки в зависимости от json файла.
             if(result.result === "error")
                 img = new Image("images/sad.jpg");
             else
@@ -79,6 +80,8 @@ if (window.XMLHttpRequest) {
 if (!xhr4) {
     alert("Error: It is not possible to create xhr");
 }
+
+// Вызов случайного json файла в зависимости от рандомного числа
 xhr4.onreadystatechange = function() {errorOrSuccess(xhr4)};
 (Math.random() >= 0.5) ? xhr4.open('GET', "json/success.json", true) : xhr4.open('GET', "json/error.json", true);
 xhr4.send();

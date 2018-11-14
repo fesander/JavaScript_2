@@ -45,6 +45,8 @@ function GalleryItem(my_class, my_link) {
         a.className += ' smallImage';
         a.target = '_blank';
         a.href = this.link;
+        // Вставка стиль прямо в html, это позволяет обдейтить только json файл,
+        // для добавления новых картинок и не трогать файл стилей
         a.style = "background-image: url('" + this.link + "')";
         return a;
     }
