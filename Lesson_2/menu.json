@@ -1,13 +1,18 @@
 {
   "menu_items" : [
-    {"id" : "main", "href" : "/", "title" : "Главная"},
-    {"id" : "catalog", "href" : "/catalogue/", "title" : "Каталог", "items" : 
+    {"id" : "main", "href" : "index.html", "title" : "Главная"},
+    {"id" : "catalog", "href" : "catalogue/", "title" : "Каталог", "items" :
         [
-            {"id" : "catalog-man", "href" : "/catalog/man/", "title" : "Мужская Одежда"},
-            {"id" : "catalog-woman", "href" : "/catalog/woman/", "title" : "Женская Одежда"}
+            {"id" : "catalog-man", "href" : "catalog/man/", "title" : "Мужская Одежда"},
+            {"id" : "catalog-woman", "href" : "catalog/woman/", "title" : "Женская Одежда", "items" :
+              [
+                {"id" : "catalog-woman-jacket", "href" : "catalog/woman/jacket/", "title" : "Жакеты"},
+                {"id" : "catalog-woman-skirt", "href" : "catalog/woman/skirt/", "title" : "Юбки"}
+              ]
+            }
         ]
     },
-    {"id" : "gallery", "href" : "/gallery/", "title" : "Галерея"},
-    {"id" : "sale", "href" : "/sale/", "title" : "Промо акции"}
+    {"id" : "gallery", "href" : "gallery.html", "title" : "Галерея"},
+    {"id" : "sale", "href" : "sale/", "title" : "Промо акции"}
   ]
 }

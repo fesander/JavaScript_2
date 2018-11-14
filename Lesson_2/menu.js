@@ -53,7 +53,7 @@ function Submenu(link, label, id, menu) {
         let ul = document.createElement('ul');
 
         for (let item in menu) {
-            if (this.menu[item] instanceof MenuItem) {
+            if (this.menu[item] instanceof MenuItem || this.menu[item] instanceof Submenu) {
                 ul.appendChild(this.menu[item].render());
             }
         }
@@ -84,33 +84,28 @@ function MenuItem(my_id, link, label) {
 console.log("The second homework begins");
 
 function parseJSONtoObject(items) {
-    my_items = {};
+    let my_items = {};
 
     for(let  i = 0; i < items.length; i++) {
         console.log("item = " + items[i].items);
         if(items[i].items) {
-            let my_submenu_items = {};
-            for(let  j = 0; j < items[i].items.length; j++) {
-                my_submenu_items[j] = new MenuItem(items[i].items[j].id, items[i].items[j].href, items[i].items[j].title);
-            }
-            my_items[i] = new Submenu(items[i].href, items[i].title, items[i].id, my_submenu_items);
+            my_items[i] = new Submenu(items[i].href, items[i].title, items[i].id, parseJSONtoObject(items[i].items));
         } else
             my_items[i] = new MenuItem(items[i].id, items[i].href, items[i].title);
     }
 
-    return new Menu('menu', 'menu', my_items);
+    return  my_items;
 }
 
-let my_items;
 function fullMenuContent(xhr) {
-    my_items = {};
+    let my_items = {};
 
     if(xhr.readyState === 4) {
         if(xhr.status === 0) {
             let items = JSON.parse(xhr.responseText);
             console.log(items);
 
-            let menu = parseJSONtoObject(items.menu_items);
+            let menu = new Menu('menu', 'menu', parseJSONtoObject(items.menu_items));
             document.body.appendChild(menu.render());
         }
     }
