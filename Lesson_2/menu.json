@@ -14,5 +14,12 @@
     },
     {"id" : "gallery", "href" : "gallery.html", "title" : "Галерея"},
     {"id" : "sale", "href" : "sale/", "title" : "Промо акции"}
+  ],
+
+  "image_items" : [
+    {"class" : "space_1", "href" : "images/space_1.jpg"},
+    {"class" : "space_2", "href" : "images/space_2.jpg"},
+    {"class" : "space_3", "href" : "images/space_3.jpg"},
+    {"class" : "space_4", "href" : "images/space_4.jpg"}
   ]
 }

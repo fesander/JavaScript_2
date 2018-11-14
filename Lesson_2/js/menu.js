@@ -81,13 +81,10 @@ function MenuItem(my_id, link, label) {
     }
 }
 
-console.log("The second homework begins");
-
 function parseJSONtoObject(items) {
     let my_items = {};
 
     for(let  i = 0; i < items.length; i++) {
-        console.log("item = " + items[i].items);
         if(items[i].items) {
             my_items[i] = new Submenu(items[i].href, items[i].title, items[i].id, parseJSONtoObject(items[i].items));
         } else
@@ -106,7 +103,9 @@ function fullMenuContent(xhr) {
             console.log(items);
 
             let menu = new Menu('menu', 'menu', parseJSONtoObject(items.menu_items));
-            document.body.appendChild(menu.render());
+            let header = document.createElement('header');
+            header.appendChild(menu.render());
+            document.body.appendChild(header);
         }
     }
 }
