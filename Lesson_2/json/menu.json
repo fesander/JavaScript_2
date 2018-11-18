@@ -1,25 +1,74 @@
 {
-  "menu_items" : [
-    {"id" : "main", "href" : "index.html", "title" : "Главная"},
-    {"id" : "catalog", "href" : "catalogue/", "title" : "Каталог", "items" :
-        [
-            {"id" : "catalog-man", "href" : "catalog/man/", "title" : "Мужская Одежда"},
-            {"id" : "catalog-woman", "href" : "catalog/woman/", "title" : "Женская Одежда", "items" :
-              [
-                {"id" : "catalog-woman-jacket", "href" : "catalog/woman/jacket/", "title" : "Жакеты"},
-                {"id" : "catalog-woman-skirt", "href" : "catalog/woman/skirt/", "title" : "Юбки"}
-              ]
-            }
-        ]
+  "menu_items": [
+    {
+      "id": "home-tab",
+      "class": "nav-link active",
+      "href": "#home",
+      "title": "Главная"
     },
-    {"id" : "gallery", "href" : "gallery.html", "title" : "Галерея"},
-    {"id" : "sale", "href" : "sale.html", "title" : "Промо акции"}
+    {
+      "id": "catalog",
+      "class": "nav-link dropdown-toggle",
+      "href": "#",
+      "title": "Каталог",
+      "items": [
+        {
+          "id": "catalog-man",
+          "class": "nav-link dropdown-item",
+          "href": "#sale",
+          "title": "Мужская Одежда"
+        },
+        {
+          "id": "catalog-woman",
+          "class": "nav-link dropdown-item",
+          "href": "#sale",
+          "title": "Женская Одежда"
+        }
+      ]
+    },
+    {
+      "id": "gallery-tab",
+      "class": "nav-link",
+      "href": "#gallery",
+      "title": "Галерея"
+    },
+    {
+      "id": "sale-tab",
+      "class": "nav-link",
+      "href": "#sale",
+      "title": "Промо акции"
+    },
+    {
+      "id": "contact-tab",
+      "class": "nav-link",
+      "href": "#contact",
+      "title": "Контакты"
+    }
+  ],
+  "image_items": [
+    {
+      "class": "space_1",
+      "href": "images/space_1.jpg"
+    },
+    {
+      "class": "space_2",
+      "href": "images/space_2.jpg"
+    },
+    {
+      "class": "space_3",
+      "href": "images/space_3.jpg"
+    },
+    {
+      "class": "space_4",
+      "href": "images/space_4.jpg"
+    }
   ],
 
-  "image_items" : [
-    {"class" : "space_1", "href" : "images/space_1.jpg"},
-    {"class" : "space_2", "href" : "images/space_2.jpg"},
-    {"class" : "space_3", "href" : "images/space_3.jpg"},
-    {"class" : "space_4", "href" : "images/space_4.jpg"}
+  "text_content": [
+    {"paragraph": "Elon Musk is the man behind some of the most innovative companies we know today: PayPal, Tesla, SpaceX, and Solar City. In a recent '60 Minutes' interview Musk gave great insight into his mindset and hardships."},
+    {"paragraph": "His story teaches us a lot about being willing to risk everything for something we believe in. Musk is not one shy of failure: in 2008 both Tesla and SpaceX were on the verge of bankruptcy. Musk was faced with the choice of either splitting his remaining funds between the two companies, or focusing all resources on one company or the other. He decided to split his resources and keep both dreams alive." },
+    {"paragraph": "This risk was gargantuan and almost disastrous. The weeks leading up to Christmas were extremely difficult for the two companies and spelled impending failure. However, on Christmas Eve, in the last hour of the last day for the final investing round regarding Tesla … funding came through at about $20 Million. Without this funding Tesla would have soon gone bankrupt. Even with this good fortune, Musk’s SpaceX was still in question."},
+    {"paragraph": "It had recently suffered 3 failed launches that nearly crippled the company. With all his chips bet on the fourth and final attempt, the company finally had a successful launch. Consequently, and with no time to spare, NASA called SpaceX on the day after Christmas with a $1.6 Billion contract. In a moment of true human vulnerability Musk could only say, 'I love you guys.' In the course of 3 days Musk went from great sorrow and risk to great joy and reward. Musk was more than just lucky though; he was daring. He was willing to forgo the safe route in order to pursue causes he believed in. In his interview with Scott Pelley, Musk said this:"},
+    {"paragraph": "'I didn't really think Tesla would be successful. I thought we would most likely fail. But I thought that we at least could address the false perception that people have that an electric car had to be ugly and slow and boring like a golf cart … if something is important enough you should try even if … the probable outcome is failure.'"}
   ]
 }
