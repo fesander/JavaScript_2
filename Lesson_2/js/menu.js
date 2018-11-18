@@ -39,16 +39,9 @@ function fullMenuContent(xhr) {
             mainPageContent(xhr);
 
             let el = document.getElementsByClassName("nav-link");
-            for(let i = 0; i < el.length; i++)
-                if(!el[i].classList.contains("dropdown-toggle"))
+            for (let i = 0; i < el.length; i++)
+                if (!el[i].classList.contains("dropdown-toggle"))
                     el[i].addEventListener("click", modifyText, false);
-            //
-            //
-            // let images = JSON.parse(xhr.responseText);
-            // let a = parseJSONtoGalleryItem(images.image_items);
-            // container = document.getElementById("gallery");
-            // let gallery = new Gallery('container', a);
-            // container.appendChild(gallery.render());
         }
     }
 }
@@ -65,8 +58,12 @@ function modifyText() {
             mainPageContent(xhr);
             break;
         case "catalog-man":
+            alert("Страница не готова. Перехожу на главную");
+            mainPageContent(xhr);
             break;
         case "catalog-woman":
+            alert("Страница не готова. Перехожу на главную");
+            mainPageContent(xhr);
             break;
         case "gallery-tab":
             fullGalleryContent(xhr);
@@ -75,6 +72,7 @@ function modifyText() {
             saleAvaleble();
             break;
         case "contact-tab":
+            contactPage();
             break;
     }
 }
@@ -94,7 +92,6 @@ function mainPageContent(xhr) {
     if(xhr.readyState === 4) {
         if(xhr.status === 0) {
             let paragraphs = JSON.parse(xhr.responseText);
-            // text = parseJSONtoParagraphs(paragraphs.text_content);
             container = document.getElementById("myTabContent");
             let article = new TextContent(paragraphs.text_content);
             container.appendChild(article.render());
@@ -107,34 +104,26 @@ function textFormat() {
 //    console.log("Formatting");
     let items = document.getElementsByClassName("paragraphs");
     let div = document.createElement('div');
-    for (item in items) {
+    let newText = [];
+    for (let item = 0; item < items.length; item++) {
         text = items[item].textContent;
         if (text !== undefined) {
             console.log(text);
-            let regexp = ("Elon");
+            let regexp = (/\'/g);
             text = text.replace(regexp, function (free) {
-                let span = document.createElement('span');
-                span.textContent = free;
-                span.classList = "red";
-                return span;
+                return "\"";
             });
+            text = text.replace(/[n]\"[t]/g, "n't");
         }
-        //       div.classList = "container";
-        let p = document.createElement('p');
-        p.textContent = text;
-        p.classList = "paragraphs lead";
-        div.appendChild(p);
+        newText[item] = {"paragraph": text};
     }
-    let button = document.createElement('button');
-    button.classList = "btn btn-secondary btn-lg";
-    button.textContent = "Форматтирование";
-    button.setAttribute("type", "button");
-    button.id = "formatting";
-    div.appendChild(button);
     document.getElementById("myTabContent").remove();
-    let content = new Content('myTabContent', 'tab-content', "main_tab");
+    let content = new Content('myTabContent', 'tab-content', this.id);
     document.body.appendChild(content.render());
-    content.appendChild(div);
+    container = document.getElementById("myTabContent");
+
+    let article = new TextContent(newText);
+    container.appendChild(article.render());
 }
 
 function parseJSONtoGalleryItem(items) {
@@ -157,6 +146,47 @@ function fullGalleryContent(xhr) {
             let gallery = new Gallery('container', a);
             container.appendChild(gallery.render());
         }
+    }
+}
+
+function contactPage() {
+    let paragraphs = JSON.parse(xhr.responseText);
+    container = document.getElementById("myTabContent");
+    container.classList = "tab-content container";
+    let form = new Form(paragraphs.form_content);
+    container.appendChild(form.render());
+    document.getElementById("validation").addEventListener("click", formValidation, false);
+}
+
+function formValidation() {
+    let nameRegexp = /^[a-zA-Zа-яА-Я]{2,10}$/;
+    let name = document.getElementById("exampleFormControlName");
+    let nameRegExpValue = name.value.match(nameRegexp);
+    if (nameRegExpValue === null) {
+        name.className = "form-control validation-fail";
+        alert("Неверное имя\nДопустимы только русские и английские буквы обоих регистров\nДлина имени от 2 до 10 символов");
+    } else {
+        name.className = "form-control validation-pass";
+    }
+
+    let phoneRegexp = /^\+[0-9]\([0-9]{3}\)[0-9]{3}-[0-9]{4}$/;
+    let phone = document.getElementById("exampleFormControlPhone");
+    let phoneRegExpValue = phone.value.match(phoneRegexp);
+    if (phoneRegExpValue === null) {
+        phone.className = "form-control validation-fail";
+        alert("Неверное формат телефона\nВведи номер в следующем формате +7(000)000-0000");
+    } else {
+        phone.className = "form-control validation-pass";
+    }
+
+    let emailRegexp = /^[a-zA-Z\.\-]+\@[a-z]{2,5}\.[a-z]{1,3}$/;
+    let email = document.getElementById("exampleFormControlInput1");
+    let emailRegExpValue = email.value.match(emailRegexp);
+    if (emailRegExpValue === null) {
+        email.className = "form-control validation-fail";
+        alert("Неверное Адрес электронной почты\nПримеры ввода:\nmymail@mail.ru\nmy.mail@mail.ru\nmy-mail@mail.ru");
+    } else {
+        email.className = "form-control validation-pass";
     }
 }
 

@@ -147,6 +147,54 @@ function TextContent(items) {
     }
 }
 
+function Form(items) {
+    Container.call(this);
+    this.items = items;
+    this.render = function () {
+        let form = document.createElement('form');
+
+        for (let item in items) {
+            if (this.items[item]){
+                this.id = this.items[item].id;
+                this.placeholder = this.items[item].placeholder;
+                this.text = this.items[item].text;
+                let div = document.createElement('div');
+                div.classList = "form-group lead";
+
+                let label = document.createElement("label");
+                label.setAttribute("for",this.id);
+                label.innerText = this.text;
+                div.appendChild(label);
+
+                if(this.id.toLowerCase().indexOf("textarea") !== -1) {
+                    let textArea = document.createElement("textarea");
+                    textArea.id = this.id;
+                    textArea.classList = "form-control";
+                    textArea.setAttribute("placeholder", this.placeholder);
+                    textArea.setAttribute("rows", "3");
+                    div.appendChild(textArea);
+
+                } else {
+                    let input = document.createElement("input");
+                    input.id = this.id;
+                    input.classList = "form-control";
+                    input.setAttribute("placeholder", this.placeholder);
+                    div.appendChild(input);
+                }
+
+                form.appendChild(div);
+            }
+        }
+        let button = document.createElement('button');
+        button.classList = "btn btn-primary";
+        button.textContent = "Валидация";
+        button.setAttribute("type", "button");
+        button.id = "validation";
+        form.appendChild(button);
+        return form;
+    }
+}
+
 function PromoContainer(className, items) {
     Container.call(this);
     this.className = className;

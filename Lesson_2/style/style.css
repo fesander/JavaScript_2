@@ -31,6 +31,23 @@ p {
   margin-top: 1rem;
 }
 
+.validation-fail {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem #ea8b94;
+}
+
+.validation-pass {
+  border-color: #008500;
+  box-shadow: 0 0 0 0.2rem #00CC00;
+}
+
 .red {
-  background-color: red;
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem #ea8b94;
+}
+
+
+form {
+  min-width: 30%;
+  margin-top: 50px;
 }

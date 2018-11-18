@@ -70,5 +70,28 @@
     {"paragraph": "This risk was gargantuan and almost disastrous. The weeks leading up to Christmas were extremely difficult for the two companies and spelled impending failure. However, on Christmas Eve, in the last hour of the last day for the final investing round regarding Tesla … funding came through at about $20 Million. Without this funding Tesla would have soon gone bankrupt. Even with this good fortune, Musk’s SpaceX was still in question."},
     {"paragraph": "It had recently suffered 3 failed launches that nearly crippled the company. With all his chips bet on the fourth and final attempt, the company finally had a successful launch. Consequently, and with no time to spare, NASA called SpaceX on the day after Christmas with a $1.6 Billion contract. In a moment of true human vulnerability Musk could only say, 'I love you guys.' In the course of 3 days Musk went from great sorrow and risk to great joy and reward. Musk was more than just lucky though; he was daring. He was willing to forgo the safe route in order to pursue causes he believed in. In his interview with Scott Pelley, Musk said this:"},
     {"paragraph": "'I didn't really think Tesla would be successful. I thought we would most likely fail. But I thought that we at least could address the false perception that people have that an electric car had to be ugly and slow and boring like a golf cart … if something is important enough you should try even if … the probable outcome is failure.'"}
+  ],
+
+  "form_content": [
+    {
+      "id" : "exampleFormControlName",
+      "placeholder" : "Иван",
+      "text" : "Имя"
+    },
+    {
+      "id" : "exampleFormControlPhone",
+      "placeholder" : "+7(000)000-0000",
+      "text" : "Телефон"
+    },
+    {
+      "id" : "exampleFormControlInput1",
+      "placeholder" : "name@example.com",
+      "text" : "Email address"
+    },
+    {
+      "id" : "exampleFormControlTextarea",
+      "placeholder" : "Любое сообщение",
+      "text" : "Сообщение"
+    }
   ]
 }
