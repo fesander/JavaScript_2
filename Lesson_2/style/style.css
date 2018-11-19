@@ -1,13 +1,10 @@
 header {
-  width: 90%;
-  background-color: #c3e6cb;
+  max-width: 100%;
   margin: 0 auto;
 }
 
 .container {
-  width: 90%;
-  height: 90%;
-  background-color: #c3e6cb;
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-evenly;
@@ -28,4 +25,29 @@ header {
 
 .smallImage:hover {
   transform: scale(1.1);
+}
+
+p {
+  margin-top: 1rem;
+}
+
+.validation-fail {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem #ea8b94;
+}
+
+.validation-pass {
+  border-color: #008500;
+  box-shadow: 0 0 0 0.2rem #00CC00;
+}
+
+.red {
+  border-color: #dc3545;
+  box-shadow: 0 0 0 0.2rem #ea8b94;
+}
+
+
+form {
+  min-width: 30%;
+  margin-top: 50px;
 }
