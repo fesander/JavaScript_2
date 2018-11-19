@@ -111,6 +111,15 @@ function textFormat() {
             console.log(text);
             let regexp = (/\'/g);
             text = text.replace(regexp, function (free) {
+            // Попытка сделать еще дополнительное выделение текста через innerHTML
+            // то я в полученом текста вижу span строкой, а не элементом DOM
+            // <span class="red">"</span>60 Minutes<span class="red">"</span>
+                // span = document.createElement("span");
+                // span.classList = "red";
+                // span.innerText = "\"";
+                // div = document.createElement("div");
+                // div.appendChild(span);
+                // return div.innerHTML;
                 return "\"";
             });
             text = text.replace(/[n]\"[t]/g, "n't");
