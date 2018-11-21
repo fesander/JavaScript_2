@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<!--<input name="city" list="cities" />-->
+<!--<datalist id="cities">-->
+    <!--<option value="Naples" />-->
+    <!--<option value="London" />-->
+    <!--<option value="Berlin" />-->
+    <!--<option value="New York" />-->
+    <!--<option value="Frattamaggiore" />-->
+<!--</datalist>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $.ajax({
+        type: "POST",
+        url: "json/cities.json",
+        dateType: "JSON",
+        success: function (date, status) {
+            let input = document.createElement("input");
+            input.setAttribute("list","cities");
+            input.setAttribute("name","city");
+            let datalist = document.createElement("datalist");
+            datalist.id = "cities";
+            for(city in date.city) {
+                let option = document.createElement("option");
+                option.value = date.city[city].name;
+                datalist.appendChild(option);
+            }
+            document.body.appendChild(input);
+            document.body.appendChild(datalist);
+        }
+    })
+</script>
+</body>
+</html>
