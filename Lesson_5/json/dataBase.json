@@ -1,0 +1,50 @@
+{
+  "goods": [
+    {
+      "id": "chair_1",
+      "class": "chair active",
+      "title": "СТЕФАН",
+      "desc": "Стул, коричнево-чёрный",
+      "cost": 1999
+    },
+    {
+      "id": "chair_2",
+      "class": "chair",
+      "title": "ИНГОЛЬФ",
+      "desc": "Стул, морилка,антик",
+      "cost": 2799
+    },
+    {
+      "id": "chair_3",
+      "class": "chair",
+      "title": "ТЕРЬЕ",
+      "desc": "Стул складной, бук",
+      "cost": 1299
+    },
+    {
+      "id": "chair_4",
+      "class": "chair",
+      "title": "НОРНЭС",
+      "desc": "Стул, белый, Исунда серый",
+      "cost": 4799
+    },
+    {
+      "id": "chair_5",
+      "class": "chair",
+      "title": "ОДГЕР",
+      "desc": "Стул, коричневый",
+      "cost": 5999
+    },
+    {
+      "id": "chair_6",
+      "class": "chair",
+      "title": "ГЭМЛЕБИ",
+      "desc": "Стул, светлая морилка антик, серый",
+      "cost": 3999
+    }
+  ],
+
+  "cart": [
+
+  ]
+}
