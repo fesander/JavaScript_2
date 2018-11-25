@@ -51,18 +51,92 @@ function showBigImage() {
 
 function displayCart() {
     console.log("show Cart");
-    $(".container").addClass("halfOpacity");
-    $(".cart").show();;
+    let totalSum = 0;
+    $(".photo").addClass("halfOpacity");
+    $(".chosenGood").addClass("halfOpacity");
+    $(".cart").addClass("displayMe");
+    // $(".cart").show();
     
     // Закрытие корзины при клике вне корзины.
 	$(document).mouseup(function (e){ // событие клика по веб-документу
 		var cart = $(".cart"); // тут указываем ID элемента
 		if (!cart.is(e.target) // если клик был не по нашему блоку
 		    && cart.has(e.target).length === 0) { // и не по его дочерним элементам
-			cart.hide(); // скрываем его
-            $(".container").removeClass("halfOpacity");
+			// cart.hide(); // скрываем его
+            cart.removeClass("displayMe");
+            $(".photo").removeClass("halfOpacity");
+            $(".chosenGood").removeClass("halfOpacity");
 		}
 	});
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/cart/",
+        dateType: "json",
+        success: function (good) {
+
+            let $cart = $(".cart");
+            $cart.empty();
+            $cart.append($('<h2/>').text("Корзина"));
+            $.each(good,function(index,value) {
+               if($('.cart').children().is('#'+value.goodId)){
+                   currentQuantity = parseInt($('.cart').find('#'+value.goodId).children()[0].textContent);
+                   $('.cart').find('#'+value.goodId).children()[0].textContent = ++currentQuantity;
+                   price = parseInt(value.cost);
+                   $('.cart').find('#'+value.goodId).children()[2].textContent = (currentQuantity * price + ' р.');
+                   totalSum += price;
+               }
+               else {
+                   let newProduct = new CartItem(value.title, value.cost, value.goodId, value.id);
+                   $cart.append(newProduct.render());
+                   totalSum += parseInt(value.cost);
+               }
+            });
+            let sum = new CartItemTotalSum(totalSum);
+            $cart.append(sum.render());
+
+
+            $('.increase').on('click',function (event) {
+                addElement(this.parentElement.parentElement);
+            });
+
+            $('.decrease').on('click',function (event) {
+                deleteElement(this.parentElement.parentElement.getAttribute("databaseid"));
+            });
+        }
+    });
+}
+
+function deleteElement(element) {
+    console.log("Minus element " + element);
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:3000/cart/"+element,
+        success: function(data) {
+            console.log(data);
+            displayCart();
+        }
+    });
+}
+
+function addElement(element) {
+    title = element.children[1].innerHTML;
+    goodId = element.id;
+    cost = parseInt(element.children[2].getAttribute("value"));
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/cart",
+        contentType: "application/json",
+        data: JSON.stringify({
+            goodId: goodId,
+            title: title,
+            cost: cost
+        }),
+        success: function(data) {
+            console.log(data);
+            displayCart();
+        }
+    });
 }
 
 function showDescription(element) {
@@ -88,11 +162,12 @@ function showDescription(element) {
 
             let $button = $('<button/>');
             $button.attr('id','buy');
+            $button.addClass(element);
             $button.text("Добавить в корзину");
 
             $description.append($header,$p1,$p2,$button);
             
-            $('.choosenGood').on('click','#buy',function(event) {
+            $('.choosenGood').on('click','#buy.'+element,function(event) {
                 $.ajax({
                     type: "POST",
                     url: "http://localhost:3000/cart",

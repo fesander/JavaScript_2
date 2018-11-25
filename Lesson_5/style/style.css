@@ -88,7 +88,7 @@ body {
     align-items: center;
 }
 
-h3 {
+h3, h2 {
     color: #212121;
     font-size: 30px;
     /* Приближение из-за подстановки шрифтов */
@@ -212,8 +212,14 @@ h3 {
     display: none;
 }
 
+.cart > h3 {
+    float: right;
+}
+
 .displayMe {
     display: flex;
+    flex-flow: column wrap;
+    align-items: center;
 }
 
 #cartIcon {
@@ -241,4 +247,19 @@ h3 {
     height: 20px;
     background-color: orangered;
     border-radius: 50%;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    background: url(../images/plus_minus.png) 50% 50% no-repeat;
+    background-size: cover;
+    cursor: pointer;
+}
+
+.increase {
+    background-position-y: 3px;
+}
+.decrease {
+    background-position-y: -17px;
 }
