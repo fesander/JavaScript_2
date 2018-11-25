@@ -247,6 +247,10 @@ h3, h2 {
     height: 20px;
     background-color: orangered;
     border-radius: 50%;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    line-height: 20px;
 }
 
 .icon {

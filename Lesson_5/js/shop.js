@@ -1,3 +1,5 @@
+let totalgoods = 0;
+
 $.ajax({
     type: "GET",
     url: "http://localhost:3000/goods",
@@ -15,6 +17,8 @@ $.ajax({
         });
         
         showBigImage();
+
+        $('#goodsCount').text(totalgoods);
 
         $('.arrow').on('click',function (event) {
             let currentElement = goods.find(x => x.id == $('.active').attr('id'));
@@ -107,6 +111,17 @@ function displayCart() {
     });
 }
 
+function changeTotalgoods(direction) {
+    if (direction === "increase") {
+        totalgoods++;
+        $('#goodsCount').text(totalgoods);
+    }
+    else {
+        totalgoods--;
+        $('#goodsCount').text(totalgoods);
+    }
+}
+
 function deleteElement(element) {
     console.log("Minus element " + element);
     $.ajax({
@@ -114,6 +129,7 @@ function deleteElement(element) {
         url: "http://localhost:3000/cart/"+element,
         success: function(data) {
             console.log(data);
+            changeTotalgoods("decrease");
             displayCart();
         }
     });
@@ -134,6 +150,7 @@ function addElement(element) {
         }),
         success: function(data) {
             console.log(data);
+            changeTotalgoods("increase");
             displayCart();
         }
     });
@@ -179,6 +196,7 @@ function showDescription(element) {
                     }),
                     success: function(data) {
                         console.log(data);
+                        changeTotalgoods("increase");
                     }
                 });
             })
