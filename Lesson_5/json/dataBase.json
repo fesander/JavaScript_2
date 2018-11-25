@@ -43,8 +43,24 @@
       "cost": 3999
     }
   ],
-
   "cart": [
-
+    {
+      "goodId": "chair_1",
+      "title": "СТЕФАН",
+      "cost": 1999,
+      "id": 1
+    },
+    {
+      "goodId": "chair_1",
+      "title": "СТЕФАН",
+      "cost": 1999,
+      "id": 2
+    },
+    {
+      "goodId": "chair_1",
+      "title": "СТЕФАН",
+      "cost": 1999,
+      "id": 3
+    }
   ]
 }

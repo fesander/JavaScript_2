@@ -9,6 +9,11 @@ $.ajax({
             let img = new GoodItem(good.id, good.class);
             $smallImages.append(img.render());
         });
+        
+        $('#cartIcon').on('click', function (event) {
+            displayCart();
+        });
+        
         showBigImage();
 
         $('.arrow').on('click',function (event) {
@@ -44,6 +49,22 @@ function showBigImage() {
     showDescription($activeElement);
 }
 
+function displayCart() {
+    console.log("show Cart");
+    $(".container").addClass("halfOpacity");
+    $(".cart").show();;
+    
+    // Закрытие корзины при клике вне корзины.
+	$(document).mouseup(function (e){ // событие клика по веб-документу
+		var cart = $(".cart"); // тут указываем ID элемента
+		if (!cart.is(e.target) // если клик был не по нашему блоку
+		    && cart.has(e.target).length === 0) { // и не по его дочерним элементам
+			cart.hide(); // скрываем его
+            $(".container").removeClass("halfOpacity");
+		}
+	});
+}
+
 function showDescription(element) {
     $.ajax({
         type: "GET",
@@ -51,7 +72,7 @@ function showDescription(element) {
         dateType: "json",
         success: function (good) {
 
-            let $description = $('.description');
+            let $description = $('.choosenGood');
             $description.empty();
             let $header = $('<h3/>');
             $header.attr('id',element);
@@ -70,6 +91,22 @@ function showDescription(element) {
             $button.text("Добавить в корзину");
 
             $description.append($header,$p1,$p2,$button);
+            
+            $('.choosenGood').on('click','#buy',function(event) {
+                $.ajax({
+                    type: "POST",
+                    url: "http://localhost:3000/cart",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        goodId: element,
+                        title: good.title,
+                        cost: good.cost
+                    }),
+                    success: function(data) {
+                        console.log(data);
+                    }
+                });
+            })
 
         }
     });
