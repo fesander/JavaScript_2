@@ -23,7 +23,8 @@
             <div id="big"></div>
             <div class="small"></div>
         </div>
-        <!--Блок с описанием товара и корзиной-->
+
+        <!--Блок с описанием товара и полеи для заполненая отзыва-->
         <div class="choosenGood">
             <form action="post">
                 <div><label for="userName">Ваше Имя</label><input id="userName" placeholder="Иван"></div>
@@ -31,21 +32,17 @@
                 <div><button class="button" id="submit" type="button">Отправить</button></div>
             </form>
         </div>
-        <div class="reviewBeforeApproval">
-            <!--<div class="reviewBeforeApprovalItem">-->
-                <!--<div class="approved"></div>-->
-                <!--<div id="name">Fedor</div>-->
-                <!--<div id="text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi aperiam aut commodi eligendi enim, explicabo laboriosam modi molestiae, mollitia necessitatibus nemo non quam quia, quo reiciendis rerum sequi suscipit unde. A atque consequatur dolore inventore iste? Ad amet aspernatur aut, blanditiis commodi cumque eveniet quisquam sapiente similique, sit temporibus voluptate.</div>-->
-                <!--<div class="denied_approve">-->
-                    <!--<div id="denied">DELL</div>-->
-                    <!--<div id="approve">POST</div>-->
-                <!--</div>-->
-            <!--</div>-->
-        </div>
+
+        <!--Блок с заапруленными и ожидающими апрува отзывами-->
+        <div class="reviewBeforeApproval"></div>
+
+        <!--Скрытый Блок с карзиной -->
         <div class="cart">
             <h3>Корзина</h3>
             <h3>Всего: <span id="total-sum">0 p.</span></h3>
         </div>
+
+        <!--Иконка с карзиной в правом верхнем углу-->
         <div id="cartIcon">
             <div id="goodsCount"></div>
         </div>

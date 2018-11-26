@@ -91,41 +91,32 @@ body {
 h3, h2 {
     color: #212121;
     font-size: 30px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 700;
 }
 #chair-description {
     color: #212121;
     font-size: 16px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 300;
     line-height: 24px;
-    /* Приближение из-за подстановки шрифтов */
     transform: scaleY(1.0005);
     margin-bottom: 10px;
 }
 #cost {
     color: #212121;
     font-size: 36px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 300;
     line-height: 48px;
-    /* Приближение из-за подстановки шрифтов */
 }
 #buy {
     background-color: #f44336;
-    box-shadow: 0px 2px 4.85px 0.15px rgba(33, 33, 33, 0.35);
+    box-shadow: 0 2px 4px 0 rgba(33, 33, 33, 0.35);
     width: 300px;
     height: 71px;
     color: #ffffff;
-    font-size: 21.99px;
-    /* Приближение из-за подстановки шрифтов */
+    font-size: 22px;
     font-weight: 700;
-    line-height: 24px;
-    /* Приближение из-за подстановки шрифтов */
     text-align: center;
     line-height: 71px;
-    background-image: none;
     margin-top: 15px;
     margin-bottom: 20px;
 }
@@ -156,7 +147,6 @@ h3, h2 {
     margin-right: 30px;
     color: #212121;
     font-size: 25px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 300;
     line-height: 40px;
     text-align: center;
@@ -173,7 +163,6 @@ h3, h2 {
     height:40px;
     color: #212121;
     font-size: 25px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 700;
     line-height: 40px;
     text-align: center;
@@ -183,7 +172,6 @@ h3, h2 {
     height:40px;
     color: #212121;
     font-size: 25px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 700;
     line-height: 40px;
     text-align: center;
@@ -193,7 +181,6 @@ h3, h2 {
     height:40px;
     color: #212121;
     font-size: 25px;
-    /* Приближение из-за подстановки шрифтов */
     font-weight: 300;
     line-height: 40px;
     text-align: center;
@@ -204,7 +191,7 @@ h3, h2 {
     width: 400px;
     min-height: 200px;
     top: 100px;
-    left: 50% - 200px;
+    left: 50%;
     border: 1px solid black;
     background: #ddd;
     border-radius: 10px;
@@ -297,7 +284,7 @@ textarea {
 }
 
 form label,
-reviewBeforeApprovalItem{
+.reviewBeforeApprovalItem{
     display: inline-block;
     margin-bottom: .5rem;
     font-size: 1.25rem;
@@ -307,10 +294,9 @@ reviewBeforeApprovalItem{
 .button {
     color: #fff;
     background-color: #545b62;
-    border-color: #4e555b;
     padding: .5rem 1rem;
     font-size: 1.25rem;
-    border: 1px solid transparent;
+    border: 1px solid #4e555b ;
     border-radius: 5px;
 }
 

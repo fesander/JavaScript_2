@@ -1,18 +1,3 @@
-let totalGoods = 0;
-
-function getInitialGoodsInCart() {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:3000/cart/",
-        dateType: "json",
-        success: function (good) {
-            totalGoods = good.length;
-            $('#goodsCount').text(totalGoods);
-        }
-    });
-}
-
-
 $.ajax({
     type: "GET",
     url: "http://localhost:3000/goods",
@@ -55,12 +40,35 @@ $.ajax({
         $('.chair').on('click',function (event) {
             $('.active').removeClass('active');
             $(this).addClass('active');
-            console.log(goods.indexOf(this));
             showBigImage();
         });
     }
 });
 
+/**
+ *
+ * @type {number} количество товаров в корзине
+ */
+let totalGoods = 0;
+
+/**
+ * Вычисляет сколько чейчас товаров в корзине и вставляет это значение в иконку #goodsCount
+ */
+function getInitialGoodsInCart() {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/cart/",
+        dateType: "json",
+        success: function (good) {
+            totalGoods = good.length;
+            $('#goodsCount').text(totalGoods);
+        }
+    });
+}
+
+/**
+ * Находит актиную картинку, отрисовывает её большое изображение и выводит не экран описание товара
+ */
 function showBigImage() {
     let $activeElement = $('.active').attr('id');
     let $bigImage = "images/"+$activeElement+".jpg";
@@ -68,20 +76,22 @@ function showBigImage() {
     showDescription($activeElement);
 }
 
+/**
+ * Отрисовка корзины
+ */
 function displayCart() {
-    console.log("show Cart");
+    // Общая цена товаров в корзине
     let totalSum = 0;
+    // Делаем весь остальной контент слегка прозрачным
     $(".photo").addClass("halfOpacity");
     $(".chosenGood").addClass("halfOpacity");
     $(".cart").addClass("displayMe");
-    // $(".cart").show();
     
     // Закрытие корзины при клике вне корзины.
 	$(document).mouseup(function (e){ // событие клика по веб-документу
 		var cart = $(".cart"); // тут указываем ID элемента
 		if (!cart.is(e.target) // если клик был не по нашему блоку
 		    && cart.has(e.target).length === 0) { // и не по его дочерним элементам
-			// cart.hide(); // скрываем его
             cart.removeClass("displayMe");
             $(".photo").removeClass("halfOpacity");
             $(".chosenGood").removeClass("halfOpacity");
@@ -98,13 +108,15 @@ function displayCart() {
             $cart.empty();
             $cart.append($('<h2/>').text("Корзина"));
             $.each(good,function(index,value) {
-               if($('.cart').children().is('#'+value.goodId)){
+                // Проверка на то, что уже есть такой товар в корзине и нужно просто увеличить его количество
+                if($('.cart').children().is('#'+value.goodId)){
                    currentQuantity = parseInt($('.cart').find('#'+value.goodId).children()[0].textContent);
                    $('.cart').find('#'+value.goodId).children()[0].textContent = ++currentQuantity;
                    price = parseInt(value.cost);
                    $('.cart').find('#'+value.goodId).children()[2].textContent = (currentQuantity * price + ' р.');
                    totalSum += price;
                }
+               // Такого товара нет, поэтому добовляем
                else {
                    let newProduct = new CartItem(value.title, value.cost, value.goodId, value.id);
                    $cart.append(newProduct.render());
@@ -115,6 +127,7 @@ function displayCart() {
             $cart.append(sum.render());
 
 
+            // Обработчики события на нажание "+" или "-" Для увеличение или умельшения количество товаров одного типа
             $('.increase').on('click',function (event) {
                 addElement(this.parentElement.parentElement);
             });
@@ -126,6 +139,10 @@ function displayCart() {
     });
 }
 
+/**
+ *
+ * @param direction Увеличение или уменьшение общего числа товаров
+ */
 function changeTotalgoods(direction) {
     if (direction === "increase") {
         totalGoods++;
@@ -137,19 +154,27 @@ function changeTotalgoods(direction) {
     }
 }
 
+/**
+ * Удаление элемента из базы
+ * @param element ID элемента для удаления из базы
+ */
 function deleteElement(element) {
-    console.log("Minus element " + element);
     $.ajax({
         type: "DELETE",
         url: "http://localhost:3000/cart/"+element,
         success: function(data) {
-            console.log(data);
+            // Уменьщаем число товаров в корзине
             changeTotalgoods("decrease");
+            // Переривовываем корзину
             displayCart();
         }
     });
 }
 
+/**
+ * Добавление товара в базу
+ * @param element Элемент на добавление в базу
+ */
 function addElement(element) {
     title = element.children[1].innerHTML;
     goodId = element.id;
@@ -164,13 +189,18 @@ function addElement(element) {
             cost: cost
         }),
         success: function(data) {
-            console.log(data);
+            // Увеличиваем число товаров в корзине
             changeTotalgoods("increase");
+            // Переривовываем корзину
             displayCart();
         }
     });
 }
 
+/**
+ * Отрисовка характеристик актовного товара
+ * @param element активный элемент
+ */
 function showDescription(element) {
     $.ajax({
         type: "GET",
@@ -199,7 +229,8 @@ function showDescription(element) {
 
             $description.append($header,$p1,$p2,$button);
             showReviewWindow();
-            
+
+            // Обработка нажатия на кнопку "Купить"
             $('.choosenGood').on('click','#buy.'+element,function(event) {
                 $.ajax({
                     type: "POST",
@@ -211,7 +242,6 @@ function showDescription(element) {
                         cost: good.cost
                     }),
                     success: function(data) {
-                        console.log(data);
                         changeTotalgoods("increase");
                     }
                 });
@@ -222,6 +252,9 @@ function showDescription(element) {
     });
 }
 
+/**
+ * Отрисовка окошка для отправки отзыва о товаре
+ */
 function showReviewWindow() {
     let $description = $('.choosenGood');
     let $form = $('<form/>');
@@ -245,7 +278,9 @@ function showReviewWindow() {
     $form.append($label,$input,$labelText, $inputText, $button);
     $description.append($form);
 
+    // Обработка нажатия на кнопку "Отправить"
     $('.sendReview').on('click', function(event) {
+        // Только если Имя пользователя прошло валидацию
         if(formValidation()) {
             $.ajax({
                 type: "POST",
@@ -257,10 +292,11 @@ function showReviewWindow() {
                     approve: false
                 }),
                 success: function(data) {
-                    console.log(data);
                     $input[0].value = '';
                     $inputText[0].value = '';
+                    // Чистим отрисовку всех отзывов
                     $('.reviewBeforeApproval').empty();
+                    // Отрисовываем все отзывы снова
                     sentForApprovalReviews()
                 }
             });
@@ -268,6 +304,9 @@ function showReviewWindow() {
     });
 }
 
+/**
+ * Отрисовка всез отзывов
+ */
 function sentForApprovalReviews() {
     let $reviewBeforeApproval = $('.reviewBeforeApproval');
     $reviewBeforeApproval.empty();
@@ -283,6 +322,7 @@ function sentForApprovalReviews() {
                 $reviewBeforeApproval.append(reviewItem.render());
             });
 
+            // Оброаботка назатия на кнопки "SEND" и "DELL"
             $('.denied').on('click', function(event) {
                 deniedReviewItem(this.parentElement.parentElement.getAttribute("databaseid"));
             })
@@ -293,21 +333,26 @@ function sentForApprovalReviews() {
     });
 }
 
+/**
+ *
+ * @param review ID элемента на удаление из базы
+ */
 function deniedReviewItem(review) {
-    console.log("Delete review Item " + review);
     $.ajax({
         type: "DELETE",
         url: "http://localhost:3000/review/"+review,
         success: function(data) {
-            console.log(data);
+            // Перерисовка всех отзывов сначала
             sentForApprovalReviews();
         }
     });
 }
 
+/**
+ *
+ * @param review Этемент на добовление в заапрувленные отзывы
+ */
 function approveReviewItem(review) {
-    console.log("Approved");
-
     $.ajax({
         type: "POST",
         url: "http://localhost:3000/review",
@@ -318,7 +363,8 @@ function approveReviewItem(review) {
             approve: true,
         }),
         success: function (data) {
-            console.log(data);
+            // Добавляем такой же отзыв с измененный параметром "approve"==true, а после сразу же удалем текущий
+            // Получилась некая замена модифаю.
             deniedReviewItem(review.getAttribute("databaseid"));
         },
         error: function () {
@@ -327,6 +373,10 @@ function approveReviewItem(review) {
     });
 }
 
+/**
+ *
+ * @returns {boolean} Проверка, что в поле Имя были введелы сомволы удовлетворяющие паттерну.
+ */
 function formValidation() {
     let nameRegexp = /^[a-zA-Zа-яА-Я0-9]{1,20}$/;
     let name = $("#userName");
