@@ -267,3 +267,111 @@ h3, h2 {
 .decrease {
     background-position-y: -17px;
 }
+
+form {
+    min-width: 30%;
+    margin-top: 50px;
+    display: block;
+    box-sizing: border-box;
+}
+
+form input,
+form textarea{
+    display: block;
+    width: 100%;
+    height: calc(2.25rem + 2px);
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    font-family: inherit;
+    margin-bottom: 1rem;
+}
+
+textarea {
+    min-height: 150px;
+}
+
+form label,
+reviewBeforeApprovalItem{
+    display: inline-block;
+    margin-bottom: .5rem;
+    font-size: 1.25rem;
+    font-weight: 300;
+}
+
+.button {
+    color: #fff;
+    background-color: #545b62;
+    border-color: #4e555b;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.denied_approve {
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    border-radius: 5px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.denied {
+    border-right: 1px solid black;
+    background-color: #dc3545;
+    text-align: center;
+    width: 50%;
+}
+.approve {
+    background-color: #008500;
+    text-align: center;
+    width: 50%;
+}
+
+.validation-fail {
+    border-color: #dc3545;
+    box-shadow: 0 0 0 0.2rem #ea8b94;
+}
+
+.reviewBeforeApproval {
+    width: 100%;
+    min-height: 100px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.reviewBeforeApprovalItem {
+    width: 350px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 5px;
+    justify-content: space-around;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.reviewBeforeApprovalItem #name,
+.reviewBeforeApprovalItem #text {
+    margin-bottom: 10px;
+}
+
+.reviewBeforeApprovalItem .approved {
+    height: 30px;
+    width: 30px;
+    background: url("../images/approved.png") 50% 50% no-repeat;
+    background-size: cover;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+}
+

@@ -78,3 +78,39 @@ function CartItemTotalSum(totalSum) {
         return total;
     }
 }
+
+function ReviewItem(my_name,text,dataBaseId,approved) {
+    Container.call(this);
+    this.name = my_name;
+    this.text = text;
+    this.dbID = dataBaseId;
+    this.approved = approved;
+
+    this.render = function () {
+        let $item = $('<div/>').addClass("reviewBeforeApprovalItem");
+        $item.attr("dataBaseId",this.dbID);
+
+        let $checkApprove = $('<div/>');
+        if(this.approved) {
+            $checkApprove.addClass("approved");
+        }
+
+        let $person = $('<div/>').attr('id', "name");
+        $person.text(this.name);
+        let $review = $('<div/>').attr('id', "text");
+        $review.text(this.text);
+
+        $item.append($checkApprove,$person,$review);
+
+        if(!this.approved) {
+            let $button = $('<div/>').addClass("denied_approve");
+            let $denied =  $('<div/>').addClass("denied");
+            $denied.text("DELL");
+            let $approve =  $('<div/>').addClass("approve");
+            $approve.text("POST");
+            $button.append($denied,$approve);
+            $item.append($button);
+        }
+        return $item;
+    }
+}
