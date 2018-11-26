@@ -1,3 +1,5 @@
+let mainContainer = $(".container");
+
 $.ajax({
     type: "POST",
     url: "json/menu.json",
@@ -5,17 +7,18 @@ $.ajax({
     success: function (date, status) {
 
         let menu = new Menu('menu', 'navigation', parseJsonMenuItems(JSON.parse(date).menu_items));
-        $(".container").append(menu.render());
+        mainContainer.append(menu.render());
 
         mainPageContent();
 
+        // language=JQuery-CSS
         let tabs = $(".tab");
         for (let tab = 0; tab < tabs.length; tab++) {
             tabs[tab].addEventListener("click", switchTab, false);
         }
 
         let content = new Content('myTabContent', 'content');
-        $(".container").append(content.render());
+        mainContainer.append(content.render());
     }
 })
 
@@ -47,7 +50,7 @@ function switchTab() {
         $("#myTabContent").remove();
 
     let content = new Content('myTabContent', 'content');
-    $(".container").append(content.render());
+    mainContainer.append(content.render());
     switch (this.id) {
         case "home-tab":
             mainPageContent();
@@ -95,7 +98,7 @@ function textFormat() {
     }
     $("#myTabContent").remove();
     let content = new Content('myTabContent', 'content');
-    $(".container").append(content.render());
+    mainContainer.append(content.render());
 
     let article = new TextContent(newText);
     $(".content").append(article.render());

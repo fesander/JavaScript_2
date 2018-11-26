@@ -11,7 +11,7 @@ function Container() {
     };
 
     this.remove = function () {
-        document.getElementById(this.id).remove();
+        $(this.id).remove();
     }
 }
 

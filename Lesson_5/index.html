@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.9/js/all.js"
+            integrity="sha384-8iPTk2s/jMVj81dnzb/iFR2sdA7u06vHJyyLlAd4snFpCl/SnyUjRrbdJsw1pGIl"
+            crossorigin="anonymous"></script>
+    <script src="js/container.js" defer></script>
+    <script src="js/shop.js" defer></script>
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <!--Блок с картинками 1 большой и тремя маленькими-->
+        <div class="photo">
+            <div class="arrow" id="arrow-left"><i class="fas fa-arrow-left"></i></div>
+            <div class="arrow" id="arrow-right"><i class="fas fa-arrow-right"></i></div>
+            <div id="big"></div>
+            <div class="small"></div>
+        </div>
+
+        <!--Блок с описанием товара и полеи для заполненая отзыва-->
+        <div class="choosenGood">
+            <form action="post">
+                <div><label for="userName">Ваше Имя</label><input id="userName" placeholder="Иван"></div>
+                <label for="userTextarea">Отзыв</label><textarea id="userTextarea" placeholder="Текст вашего отзыва"></textarea>
+                <div><button class="button" id="submit" type="button">Отправить</button></div>
+            </form>
+        </div>
+
+        <!--Блок с заапруленными и ожидающими апрува отзывами-->
+        <div class="reviewBeforeApproval"></div>
+
+        <!--Скрытый Блок с карзиной -->
+        <div class="cart">
+            <h3>Корзина</h3>
+            <h3>Всего: <span id="total-sum">0 p.</span></h3>
+        </div>
+
+        <!--Иконка с карзиной в правом верхнем углу-->
+        <div id="cartIcon">
+            <div id="goodsCount"></div>
+        </div>
+    </div>
+</body>
+</html>
