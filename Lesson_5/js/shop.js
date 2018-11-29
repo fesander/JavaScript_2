@@ -1,49 +1,132 @@
-$.ajax({
-    type: "GET",
-    url: "http://localhost:3000/goods",
-    dateType: "json",
-    success: function (goods) {
+function shopContent() {
+    let $photo = $('<div/>').addClass('photo');
+    let $arrowLeft = $('<div/>').addClass('arrow').attr('id','arrow-left').append($('<i/>').addClass('fas fa-arrow-left'));
+    let $arrowRight = $('<div/>').addClass('arrow').attr('id','arrow-right').append($('<i/>').addClass('fas fa-arrow-right'));
+    let $bigPhoto = $('<div/>').attr('id','big');
+    let $smallPhoto = $('<div/>').addClass('small');
+    $photo.append($arrowLeft,$arrowRight,$bigPhoto,$smallPhoto);
 
-        let $smallImages = $('.small');
-        goods.forEach(function (good) {
-            let img = new GoodItem(good.id, good.class);
-            $smallImages.append(img.render());
-        });
-        
-        $('#cartIcon').on('click', function (event) {
-            displayCart();
-        });
 
-        getInitialGoodsInCart();
-        showBigImage();
-        sentForApprovalReviews();
+    let $choosenGood = $('<div/>').addClass('choosenGood');
+    let $form = $('<form/>').attr('action','post');
+    let $lableName = $('<lable/>').attr('for','userName');
+    $lableName.text("Ваше Имя");
+    let $inputName = $('<input/>').attr({
+        'id' : 'userName',
+        'placeholder' : 'Иван'
+    });
+    let $name = $('<div/>').append($lableName,$inputName);
+    let $lableText = $('<lable/>').attr('for','userTextarea');
+    $lableText.text("Отзыв");
+    let $inputText = $('<input/>').attr({
+        'id' : 'userTextarea',
+        'placeholder' : 'Текст вашего отзыва'
+    });
+    let $text = $('<div/>').append($lableText,$inputText);
+    let $button = $('<buttpn/>').addClass('button').attr({
+        'id' : 'submit',
+        'type' : 'button'
+    });
+    $button.text('Отправить');
+    $form.append($name,$text,$button);
+    $choosenGood.append($form);
 
-        $('#goodsCount').text(totalGoods);
+    let $cart = $('<div/>').addClass('cart');
+    let $cartHeader = $('<h3/>');
+    $cartHeader.text('Корзина');
+    let $cartSum = $('<h3/>').append($('<span/>').attr('id','total-sum'));
+    $cartSum.text('Всего: ');
+    $cart.append($cartHeader,$cartSum);
 
-        $('.arrow').on('click',function (event) {
-            let currentElement = goods.find(x => x.id == $('.active').attr('id'));
-            let indexNumber = goods.indexOf(currentElement);
-            let nextElementId;
-            $('.active').removeClass('active');
-            if(indexNumber === 0 && this.id === 'arrow-left')
-                nextElementId = goods[goods.length-1].id;
-            else if (indexNumber === goods.length-1 && this.id === 'arrow-right')
-                nextElementId = goods[0].id;
-            else if (this.id === 'arrow-left')
-                nextElementId = goods[indexNumber-1].id;
-            else if (this.id === 'arrow-right')
-                nextElementId = goods[indexNumber+1].id;
-            $('#'+nextElementId).addClass('active');
+    let $cartIcon = $('<div/>').attr('id','cartIcon').append($('<div/>').attr('id','goodsCount'));
+
+    $("#myTabContent").append($cart,$photo,$choosenGood,$('<div/>').addClass('reviewBeforeApproval'),$cartIcon);
+
+
+    $('#cartIcon').droppable({
+        over: function (event) {
+            let my_id;
+            let my_title;
+            let my_cost;
+            $.ajax({ type: "GET",
+                url: "http://localhost:3000/goods",
+                dateType: "json",
+                success: function (goods) {
+                    goods.forEach(function (good) {
+                        if(good.id === event.toElement.id) {
+                            my_id = good.id;
+                            my_title = good.title;
+                            my_cost = good.cost;
+                        }
+                    });
+                }
+            });
+
+
+            $.ajax({
+                type: "POST",
+                url: "http://localhost:3000/cart",
+                contentType: "application/json",
+                data: JSON.stringify({
+                    goodId: my_id,
+                    title: my_title,
+                    cost: my_cost
+                }),
+                success: function(data) {
+                    changeTotalgoods("increase");
+                }
+            });
+        }
+    });
+
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:3000/goods",
+        dateType: "json",
+        success: function (goods) {
+
+            let $smallImages = $('.small');
+            goods.forEach(function (good) {
+                let img = new GoodItem(good.id, good.class);
+                $smallImages.append(img.render());
+                $('#'+good.id).draggable({revert: true});
+            });
+
+            $('#cartIcon').on('click', function (event) {
+                displayCart();
+            });
+
+            getInitialGoodsInCart();
             showBigImage();
-        });
+            sentForApprovalReviews();
 
-        $('.chair').on('click',function (event) {
-            $('.active').removeClass('active');
-            $(this).addClass('active');
-            showBigImage();
-        });
-    }
-});
+            $('#goodsCount').text(totalGoods);
+
+            $('.arrow').on('click',function (event) {
+                let currentElement = goods.find(x => x.id == $('.active_product').attr('id'));
+                let indexNumber = goods.indexOf(currentElement);
+                let nextElementId;
+                $('.active_product').removeClass('active_product');
+                if(indexNumber === 0 && this.id === 'arrow-left')
+                    nextElementId = goods[goods.length-1].id;
+                else if (indexNumber === goods.length-1 && this.id === 'arrow-right')
+                    nextElementId = goods[0].id;
+                else if (this.id === 'arrow-left')
+                    nextElementId = goods[indexNumber-1].id;
+                else if (this.id === 'arrow-right')
+                    nextElementId = goods[indexNumber+1].id;
+                $('#'+nextElementId).addClass('active_product');
+                showBigImage();
+            });
+
+            $('.chair').on('click',function (event) {
+                $('.active_product').removeClass('active_product');
+                $(this).addClass('active_product');
+                showBigImage();
+            });
+        }
+    });
+}
 
 /**
  *
@@ -70,7 +153,7 @@ function getInitialGoodsInCart() {
  * Находит актиную картинку, отрисовывает её большое изображение и выводит не экран описание товара
  */
 function showBigImage() {
-    let $activeElement = $('.active').attr('id');
+    let $activeElement = $('.active_product').attr('id');
     let $bigImage = "images/"+$activeElement+".jpg";
     $('#big').attr("style","background-image: url('" + $bigImage + "')");
     showDescription($activeElement);
@@ -86,7 +169,7 @@ function displayCart() {
     $(".photo").addClass("halfOpacity");
     $(".chosenGood").addClass("halfOpacity");
     $(".cart").addClass("displayMe");
-    
+
     // Закрытие корзины при клике вне корзины.
 	$(document).mouseup(function (e){ // событие клика по веб-документу
 		var cart = $(".cart"); // тут указываем ID элемента
