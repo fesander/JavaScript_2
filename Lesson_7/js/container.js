@@ -6,7 +6,6 @@ function Container() {
         let $div = $('<div/>');
         $div.id = this.id;
         $div.className = this.className;
-
         return div;
     };
 
@@ -22,12 +21,11 @@ function GoodItem(my_id, my_class) {
     this.link = "images/"+my_id+".jpg";
 
     this.render = function () {
-        let $image = $('<div/>').attr({
+        return $('<div/>').attr({
             "class": this.class,
             "id": this.id,
             "style": "background-image: url('" + this.link + "')"
         });
-        return $image;
     }
 }
 
@@ -122,17 +120,17 @@ function Menu(id, className, items) {
     this.items = items;
 
     this.render = function () {
-        let ul = document.createElement('ul');
-        ul.className = this.className;
-        ul.id = this.id;
+        let $ul = $('<ul/>').addClass(this.className);
+        $ul.attr('id',this.id);
 
         for (let item in items) {
-            if (this.items[item] instanceof MenuItem) {
-                ul.appendChild(this.items[item].render());
+            if(items.hasOwnProperty(item)){
+                if (this.items[item] instanceof MenuItem) {
+                    $ul.append(this.items[item].render());
+                }
             }
         }
-
-        return ul;
+        return $ul;
     }
 }
 
@@ -143,26 +141,26 @@ function MenuItem(my_id, my_class, label) {
     this.label = label;
 
     this.render = function () {
-        let li = document.createElement('li');
-        li.id = this.id;
-        li.className = this.className;
-        li.textContent = this.label;
-
-        return li;
-    }
+        let $li = $('<li/>').addClass(this.className);
+        $li.attr('id', this.id).text(this.label);
+        return $li;
+    };
 
     this.renderContentArea = function() {
-        let div = document.createElement('div');
-        div.className = "tab-pane fade";
+        let $div = $('<div/>').addClass('tab-pane fade');
         if (isNaN(this.className.match("active")))
-            div.className += "active show";
-        div.setAttribute("role", "tabpanel");
-        div.setAttribute("aria-labelledby", this.id);
+            $div.addClass('active show');
         let regular = "[a-zA-Z]+";
-        div.id = this.link.match(regular);
-        return div;
+        $div.attr({
+            'role' : 'tabpanel',
+            'aria-labelledby' : this.id,
+            'id': this.link.match(regular)
+        });
+        return $div;
     }
 }
+
+///////////////////////////////////////////////////////////
 
 function Content(my_id, my_class) {
     Container.call(this);

@@ -49,7 +49,7 @@ function shopContent() {
             let my_title;
             let my_cost;
             $.ajax({ type: "GET",
-                url: "http://localhost:3000/goods",
+                url: "http://localhost:4000/goods",
                 dateType: "json",
                 success: function (goods) {
                     goods.forEach(function (good) {
@@ -65,7 +65,7 @@ function shopContent() {
 
             $.ajax({
                 type: "POST",
-                url: "http://localhost:3000/cart",
+                url: "http://localhost:4000/cart",
                 contentType: "application/json",
                 data: JSON.stringify({
                     goodId: my_id,
@@ -81,7 +81,7 @@ function shopContent() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/goods",
+        url: "http://localhost:4000/goods",
         dateType: "json",
         success: function (goods) {
 
@@ -140,7 +140,7 @@ let totalGoods = 0;
 function getInitialGoodsInCart() {
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/cart/",
+        url: "http://localhost:4000/cart/",
         dateType: "json",
         success: function (good) {
             totalGoods = good.length;
@@ -183,7 +183,7 @@ function displayCart() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/cart/",
+        url: "http://localhost:4000/cart/",
         dateType: "json",
         success: function (good) {
 
@@ -244,7 +244,7 @@ function changeTotalgoods(direction) {
 function deleteElement(element) {
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:3000/cart/"+element,
+        url: "http://localhost:4000/cart/"+element,
         success: function(data) {
             // Уменьщаем число товаров в корзине
             changeTotalgoods("decrease");
@@ -264,7 +264,7 @@ function addElement(element) {
     cost = parseInt(element.children[2].getAttribute("value"));
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/cart",
+        url: "http://localhost:4000/cart",
         contentType: "application/json",
         data: JSON.stringify({
             goodId: goodId,
@@ -287,7 +287,7 @@ function addElement(element) {
 function showDescription(element) {
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/goods/"+element,
+        url: "http://localhost:4000/goods/"+element,
         dateType: "json",
         success: function (good) {
 
@@ -317,7 +317,7 @@ function showDescription(element) {
             $('.choosenGood').on('click','#buy.'+element,function(event) {
                 $.ajax({
                     type: "POST",
-                    url: "http://localhost:3000/cart",
+                    url: "http://localhost:4000/cart",
                     contentType: "application/json",
                     data: JSON.stringify({
                         goodId: element,
@@ -367,7 +367,7 @@ function showReviewWindow() {
         if(formValidation()) {
             $.ajax({
                 type: "POST",
-                url: "http://localhost:3000/review",
+                url: "http://localhost:4000/review",
                 contentType: "application/json",
                 data: JSON.stringify({
                     name: $("#userName")[0].value,
@@ -396,7 +396,7 @@ function sentForApprovalReviews() {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:3000/review",
+        url: "http://localhost:4000/review",
         dateType: "json",
         success: function (reviews) {
 
@@ -423,7 +423,7 @@ function sentForApprovalReviews() {
 function deniedReviewItem(review) {
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:3000/review/"+review,
+        url: "http://localhost:4000/review/"+review,
         success: function(data) {
             // Перерисовка всех отзывов сначала
             sentForApprovalReviews();
@@ -438,7 +438,7 @@ function deniedReviewItem(review) {
 function approveReviewItem(review) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/review",
+        url: "http://localhost:4000/review",
         contentType: "application/json",
         data: JSON.stringify({
             name: review.children[1].textContent,

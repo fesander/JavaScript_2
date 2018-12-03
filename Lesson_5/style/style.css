@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Montserrat:100,300,400,700');
 
+
 * {
     margin: 0;
     padding:0;
@@ -12,10 +13,82 @@ body {
 .container {
     margin: 0 auto;
     padding-top: 50px;
-    max-width:1200px;
+    max-width:1400px;
+    /*display: flex;*/
+    /*justify-content: space-around;*/
+    /*flex-wrap: wrap;*/
+}
+
+.navigation {
+    width: 100%;
     display: flex;
-    justify-content: space-around;
     flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: -2px;
+}
+
+.navigation > li {
+    display: block;
+    padding: .5rem 1rem;
+    color: #495057;
+    background-color: #fff;
+    border: 2px solid #80bdff;
+    cursor: pointer;
+    border-radius: 25% 25% 0 0;
+}
+.navigation > li.active {
+    border-bottom: 2px solid transparent;
+    z-index: 1;
+}
+.navigation > li:nth-child(n+2) {
+    border-left: none;
+}
+
+.content {
+    min-height: 250px;
+    max-width: 1250px;
+    border: 2px solid #80bdff;
+    border-radius: 0 25px 25px 25px;
+    padding: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.paragraphs {
+    margin-bottom: 20px;
+}
+
+.button {
+    color: #fff;
+    background-color: #545b62;
+    border-color: #4e555b;
+    padding: .5rem 1rem;
+    font-size: 1.25rem;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.smallImage {
+    display: block;
+    -webkit-background-size: cover;
+    background-size: cover;
+    border: 1px solid #545b62;
+    border-radius: 20px;
+    height: 200px;
+    width: 200px;
+    margin: 20px 50px 20px 50px;
+    transition: all 1s ease-out;
+    overflow: hidden;
+}
+
+.smallImage:hover {
+    transform: scale(1.1);
 }
 
 .halfOpacity {
@@ -76,7 +149,7 @@ body {
     opacity: 0.75;
 }
 
-.small > .active {
+.small > .active_product {
     opacity: 1;
 }
 
@@ -257,15 +330,19 @@ h3, h2 {
 
 form {
     min-width: 30%;
-    margin-top: 50px;
-    display: block;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-around;
     box-sizing: border-box;
+}
+
+.choosenGood > form{
+    display: block
 }
 
 form input,
 form textarea{
     display: block;
-    width: 100%;
     height: calc(2.25rem + 2px);
     padding: .375rem .75rem;
     font-size: 1rem;
@@ -277,6 +354,7 @@ form textarea{
     border-radius: .25rem;
     font-family: inherit;
     margin-bottom: 1rem;
+    margin-right: 1rem;
 }
 
 textarea {
@@ -320,6 +398,11 @@ form label,
     width: 50%;
 }
 
+.validation-pass {
+    border-color: #008500;
+    box-shadow: 0 0 0 0.2rem #00CC00;
+}
+
 .validation-fail {
     border-color: #dc3545;
     box-shadow: 0 0 0 0.2rem #ea8b94;
@@ -361,3 +444,6 @@ form label,
     left: 5px;
 }
 
+.scaleCart {
+    transform: scale(1.5);
+}
