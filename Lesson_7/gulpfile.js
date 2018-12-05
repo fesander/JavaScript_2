@@ -10,6 +10,7 @@ let gulp        = require('gulp'), // Подключаем gulp к проект�
     cache       = require('gulp-cache'),
     autoprefixer= require('gulp-autoprefixer'),
     jsonServer  = require("gulp-json-srv"),
+    jasmine     = require('gulp-jasmine');
     browserSync = require('browser-sync');
 
 /**
@@ -102,6 +103,11 @@ gulp.task('json-start', function(){
         .pipe(server.pipe());
 });
 
+gulp.task('start_test', function () {
+    return gulp.src('jasmine/specs/container.js')
+    // return gulp.src('jasmine/lib/jasmine_examples/Player.js')
+        .pipe(jasmine());
+});
 
 gulp.task('build', ['clean', 'img', 'css-libs', 'js_build', 'js_concat'], function () {
    let buildCss = gulp.src([

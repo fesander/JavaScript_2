@@ -6,7 +6,7 @@ function Container() {
         let $div = $('<div/>');
         $div.id = this.id;
         $div.className = this.className;
-        return div;
+        return $div;
     };
 
     this.remove = function () {
@@ -17,12 +17,12 @@ function Container() {
 function GoodItem(my_id, my_class) {
     Container.call(this);
     this.id = my_id;
-    this.class = my_class;
+    this.className = my_class;
     this.link = "images/"+my_id+".jpg";
 
     this.render = function () {
         return $('<div/>').attr({
-            "class": this.class,
+            "class": this.className,
             "id": this.id,
             "style": "background-image: url('" + this.link + "')"
         });
@@ -37,8 +37,8 @@ function CartItem(my_name, my_cost, my_id, dataBaseId) {
     this.dbID = dataBaseId;
 
     this.render = function () {
-        let good = $('<div/>').addClass('oneChair');
-        good.attr( {
+        let $good = $('<div/>').addClass('oneChair');
+        $good.attr( {
             "id" : this.id,
             "dataBaseId" : this.dbID
         });
@@ -56,8 +56,8 @@ function CartItem(my_name, my_cost, my_id, dataBaseId) {
         let deleting = $('<div/>').addClass('icon decrease');
         quantityManging.append(adding,deleting);
 
-        good.append(quantity, product, price, quantityManging);
-        return good;
+        $good.append(quantity, product, price, quantityManging);
+        return $good;
     }
 }
 
